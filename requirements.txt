@@ -1,5 +1,5 @@
 importlib_metadata==6.0.0
-locustio
+locust
 numpy
 pandas
 Pillow
