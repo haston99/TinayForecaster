@@ -28,7 +28,7 @@ from streamlit_extras.colored_header import ST_COLOR_PALETTE
 
 st.set_page_config(layout="centered", page_title="Tinay Forecaster", page_icon="🧮")
 
-display = Image.open('Logo-no-back.png')
+display = Image.open('logo-no-back.png')
 col1, col2 = st.columns(2)
 col1.image(display, width = 800)
 
