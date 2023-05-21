@@ -11,7 +11,7 @@ st.set_page_config(
 
 )
 
-display = Image.open('Logo-no-back.png')
+display = Image.open('https://github.com/haston99/TinayForecaster/blob/master/logo-no-back.png.png')
 col1, col2 = st.columns(2)
 col1.image(display, width = 800)
 
