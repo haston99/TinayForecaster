@@ -39,7 +39,6 @@ if data is not None:
             df.info(
                 buf=buffer,
                 verbose=True,
-                null_counts=False
             )
             df
             st.text(buffer.getvalue())
