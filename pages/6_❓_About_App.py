@@ -37,7 +37,7 @@ st.write("")
 st.subheader("Future DataFrame Prediction")
 st.markdown(f'As we know, the prediction are made based on the 5 last rows of the time series data. yhat is the prediction, yhat_lower, and yhat_upper are the uncertainty levels(it basically means the prediction and actual values can vary within the bounds of the uncertainty levels). Next up we have a trend that shows the long-term growth, shrink, or stagnancy of the data, trend_lower, and trend_upper is the uncertainty levels.')
 
-st.subheader("Future DataFrame Prediction")
+st.subheader("Future Prediction Visualization")
 st.markdown(f'The light blue is the uncertainty level(yhat_upper and yhat_lower), the dark blue is the prediction(yhat) and the black dots are the original data. We can see that predicted data are very close to the actual data. It is safe to say that the predictions are close to accurate.')
 
 
