@@ -5,6 +5,7 @@ import warnings
 from importlib_metadata import version  # python3.8+
 
 
+
 # disable FutureWarning/DeprecationWarning from prophet/pandas
 # For packages verions control
 warnings.simplefilter(action='ignore', category=DeprecationWarning)
@@ -15,6 +16,8 @@ import streamlit as st
 from PIL import Image
 import pandas as pd 
 import prophet
+from prophet.diagnostics import cross_validation, performance_metrics
+
 
 
 # Workaround to suppress stdout/stderr output from prophet/pystan
@@ -48,7 +51,7 @@ st.set_page_config(
 
 )
 
-display = Image.open('logo-no-back.png')
+display = Image.open('Logo-no-back.png')
 col1, col2 = st.columns(2)
 col1.image(display, width = 800)
 
@@ -71,6 +74,8 @@ if uploaded_file is not None:
     
     if st.button("Forecast ?"):
         if len(df.columns==2) or (df.columns.values==['ds' ,'y']) :
+
+
                 # create prophet model
             model = prophet.Prophet()
 
@@ -81,6 +86,7 @@ if uploaded_file is not None:
 
                 # prepare the dataframe for the prediction
             future = model.make_future_dataframe(periods=365)
+            
             st.subheader("Future DataFrame Timestamps - Tail")
             st.table(future.tail())
 
@@ -92,18 +98,38 @@ if uploaded_file is not None:
             st.subheader("Future DataFrame Predictions - Tail")
             st.table(df_forecast)
 
+
+            # plot the predictions
             st.header("Matplotlib Plots")
             st.subheader("Prophet Predictions")
+            st.pyplot(model.plot(forecast, uncertainty=True,include_legend=True))
 
-
-
-                # plot the predictions
-            st.pyplot(model.plot(forecast))
+            # plot the components
             st.subheader("Prophet Components")
-           
-                # plot the components
-            st.pyplot(model.plot_components(forecast))
-                
+            st.pyplot(model.plot_components(forecast, uncertainty=True))
+            
+
+            with st.spinner('Computing '):
+            #Perform cross-validation
+                st.subheader("Cross-validation Diagnostics")
+            # Split the dataset into a training and testing set
+            #train_size = int(len(df) * 0.8)
+            #train_df = df[:train_size]
+            #test_df = df[train_size:]
+    
+                df_cv = cross_validation(
+                     model,
+                     initial='730 days',
+                     horizon='90 days',
+                     period='45 days'
+                    )
+                st.table(df_cv.head())
+
+            # perform metrics
+                #st.subheader("Compute performance metrics")
+                #df_metrics = performance_metrics(df_cv)
+                #st.table(df_metrics)
+
         else:
             st.error("Adapt the dataframe for the prediction or go to Data Editor")
     
