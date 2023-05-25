@@ -126,9 +126,9 @@ if uploaded_file is not None:
                 st.table(df_cv.head())
 
             # perform metrics
-                #st.subheader("Compute performance metrics")
-                #df_metrics = performance_metrics(df_cv)
-                #st.table(df_metrics)
+                st.subheader("Compute performance metrics")
+                df_metrics = performance_metrics(df_cv)
+                st.table(df_metrics)
 
         else:
             st.error("Adapt the dataframe for the prediction or go to Data Editor")
