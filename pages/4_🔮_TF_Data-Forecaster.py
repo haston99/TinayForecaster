@@ -120,15 +120,15 @@ if uploaded_file is not None:
                 df_cv = cross_validation(
                      model,
                      initial='730 days',
-                     horizon='90 days',
-                     period='45 days'
+                     horizon='365 days',
+                     period='180 days'
                     )
                 st.table(df_cv.head())
 
             # perform metrics
                 st.subheader("Compute performance metrics")
                 df_metrics = performance_metrics(df_cv)
-                st.table(df_metrics)
+                st.code(df_metrics)
 
         else:
             st.error("Adapt the dataframe for the prediction or go to Data Editor")
